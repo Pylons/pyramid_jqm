@@ -24,7 +24,7 @@ except IOError:
     README = CHANGES = ''
 
 install_requires = [
-    'pyramid>=1.1b2',
+    'pyramid>=1.1b3', # requires static_view with use_subpath
     ]
 
 setup(name='pyramid_jqm',
