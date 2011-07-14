@@ -1,2 +1,7 @@
-def my_view(request):
-    return {'project':'{{project}}'}
+from pyramid.view import static_view
+from pyramid.view import view_config
+
+# www is a view for static files; it will be found when all other
+# views fail to be found (it's a NotFound view)
+www = static_view('{{package}}:static', cache_max_age=86400, use_subpath=False)
+www = view_config(context='pyramid.exceptions.NotFound')(www)

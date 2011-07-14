@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" class="no-js">
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>Pyramid jQuery Mobile</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="mobileinit.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="pyramid.js"></script>
+
+  </head>
+
+  <body>
+
+    <div data-role="page" id="home">
+      
+      <div data-role="header" id="home-header" >
+        <h1>Pyramid jQuery Mobile</h1>
+      </div>
+      
+      <div data-role="content">
+        
+        <ul data-role="listview" data-inset="true">
+          <li data-role="list-divider">Menu</li>
+          <li>
+            <a href="#about-pyramid">About Pyramid</a>
+          </li>
+          <li>
+            <a href="#demo">Demo</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div data-role="page" id="about-pyramid">
+      
+      <div data-role="header" >
+        <h1>About Pyramid</h1>
+        <a href="#home" class="be-icon-home ui-btn-right"></a>
+      </div>
+      
+      <div data-role="content">
+        <img src="pyramid-small.png" id="about-pyramid-icon"/>
+        <p>Pyramid is a small, fast, down-to-earth web framework written in Python</p>
+        <a href="http://pylonsproject.org" data-role="button">Pylons Project Home</a>
+      </div>
+      
+    </div>
+
+    <script type="text/javascript">
+
+      $(document).ready(function () {
+      
+        $('#home').bind('pagebeforeshow', function () {
+           pyramid.home_pagebeforeshow($(this));
+        });
+      
+        $('#about-pyramid').bind('pagecreate', function () {
+           pyramid.aboutpyramid_pagecreate($(this));
+        });
+      
+        $('#demo').bind('pagecreate', function () {
+           pyramid.demo_pagecreate($(this));
+        });
+      
+      });
+
+    </script>
+
+  </body>
+
+</html>
