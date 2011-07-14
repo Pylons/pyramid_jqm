@@ -1,0 +1,18 @@
+#maps-demo {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+#maps-demo-content {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding: 0px;
+}
+
+#maps-demo-canvas {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}

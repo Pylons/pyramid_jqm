@@ -7,11 +7,14 @@
     <title>Pyramid jQuery Mobile</title>
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
+    <link rel="stylesheet" type="text/css" href="jquery.toastmessage-0.3-20110510.css" />
+    <link rel="stylesheet" type="text/css" href="pyramid.css" />
+
     <script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="mobileinit.js"></script>
     <script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="jquery.toastmessage-0.3-20110510.js"></script>
     <script type="text/javascript" src="pyramid.js"></script>
 
   </head>
@@ -20,7 +23,7 @@
 
     <div data-role="page" id="home">
       
-      <div data-role="header" id="home-header" >
+      <div data-role="header">
         <h1>Pyramid jQuery Mobile</h1>
       </div>
       
@@ -32,7 +35,7 @@
             <a href="#about-pyramid">About Pyramid</a>
           </li>
           <li>
-            <a href="#demo">Demo</a>
+            <a href="#maps-demo">Google Maps Demo</a>
           </li>
         </ul>
       </div>
@@ -42,31 +45,49 @@
       
       <div data-role="header" >
         <h1>About Pyramid</h1>
-        <a href="#home" class="be-icon-home ui-btn-right"></a>
+        <a href="#home" class="ui-btn-right">Home</a>
       </div>
       
       <div data-role="content">
-        <img src="pyramid-small.png" id="about-pyramid-icon"/>
+        <img src="pyramid-small.png"/>
         <p>Pyramid is a small, fast, down-to-earth web framework written in Python</p>
         <a href="http://pylonsproject.org" data-role="button">Pylons Project Home</a>
       </div>
       
     </div>
 
+    <div data-role="page" id="maps-demo">
+      
+      <div data-role="header" data-position="fixed">
+        <h1>Maps Demo</h1>
+        <a href="#home" class="ui-btn-right">Home</a>
+      </div>
+      
+      <div data-role="content" id="maps-demo-content">
+        <div id="maps-demo-canvas" style="width:100%; height:100%"></div>
+      </div>
+
+    </div>
+
     <script type="text/javascript">
 
       $(document).ready(function () {
-      
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=pyramid.init_google_maps";
+        document.body.appendChild(script);
+
         $('#home').bind('pagebeforeshow', function () {
            pyramid.home_pagebeforeshow($(this));
         });
       
         $('#about-pyramid').bind('pagecreate', function () {
-           pyramid.aboutpyramid_pagecreate($(this));
+           pyramid.about_pyramid_pagecreate($(this));
         });
       
-        $('#demo').bind('pagecreate', function () {
-           pyramid.demo_pagecreate($(this));
+        $('#maps-demo').bind('pagecreate', function () {
+           pyramid.maps_demo_pagecreate($(this));
         });
       
       });
