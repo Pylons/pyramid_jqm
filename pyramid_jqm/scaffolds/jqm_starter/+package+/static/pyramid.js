@@ -20,7 +20,7 @@ var pyramid = function () {
     var 
         google_maps_ready = new $.Deferred(),
         device_location_ready = new $.Deferred(),
-        api_prefix = 'http://localhost:6543',
+        api_prefix = '',
         xxx = null; // avoid trailing comma
 
     function show_status_message(text) {
