@@ -122,13 +122,17 @@ var pyramid = function () {
         return handler;
     }
 
-    var jqhxr_error = jqxhr_error_factory(); // generic error
-
+    var jqxhr_error = jqxhr_error_factory(); // generic error
 
     function home_pagebeforeshow(div) {
     }
     
     function about_pyramid_pagecreate(div) {
+        $.getJSON(api_prefix + '/versions', function (data) {
+                $('#about-pyramid-jqm-version').text(data.pjqm_version);
+                $('#about-pyramid-version').text(data.pyramid_version);
+            }).error(jqxhr_error);
+                
     }
 
     function maps_demo_pagecreate(div) { 
@@ -139,9 +143,17 @@ var pyramid = function () {
                                                    loc.coords.longitude),
                     local_map_options = {'center': point},
                     canvas = $('#maps-demo-canvas')[0],
-                    map;
+                    map,
+                    marker;
                 $.extend(local_map_options, map_options);
                 map = new google.maps.Map(canvas, local_map_options);
+                marker = new google.maps.Marker(
+                         {position: point,
+                          map: map,
+                          draggable: false,
+                          icon: 'yellow_pin.png',
+                          title: 'You are probably here'
+                         });
                 google.maps.event.trigger(map, 'resize');
             });
     }

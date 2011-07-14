@@ -1,3 +1,5 @@
+from pkg_resources import get_distribution
+
 from pyramid.view import static_view
 from pyramid.view import view_config
 
@@ -5,3 +7,10 @@ from pyramid.view import view_config
 # views fail to be found (it's a NotFound view)
 www = static_view('{{package}}:static', cache_max_age=86400)
 www = view_config(context='pyramid.exceptions.NotFound')(www)
+
+@view_config(name='versions', renderer='json')
+def versions(request):
+    pjqm_dist = get_distribution('pyramid_jqm')
+    pyramid_dist = get_distribution('pyramid')
+    return {'pjqm_version':pjqm_dist.version,
+            'pyramid_version':pyramid_dist.version}

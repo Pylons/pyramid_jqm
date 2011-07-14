@@ -32,7 +32,7 @@
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Menu</li>
           <li>
-            <a href="#about-pyramid">About Pyramid</a>
+            <a href="#about-pyramid">About</a>
           </li>
           <li>
             <a href="#maps-demo">Google Maps Demo</a>
@@ -44,14 +44,23 @@
     <div data-role="page" id="about-pyramid">
       
       <div data-role="header" >
-        <h1>About Pyramid</h1>
+        <h1>About pyramid_jqm</h1>
         <a href="#home" class="ui-btn-right">Home</a>
       </div>
       
       <div data-role="content">
         <img src="pyramid-small.png"/>
-        <p>Pyramid is a small, fast, down-to-earth web framework written in Python</p>
-        <a href="http://pylonsproject.org" data-role="button">Pylons Project Home</a>
+
+        <p>
+          <a href="http://pylonsproject.org">Pyramid</a> is a small, fast,
+        down-to-earth web framework written in Python.  <i>pyramid_jqm</i> is
+        a scaffolding package which gets you started on a
+        simple <a href="http://jquerymobile.org">jQuery Mobile</a>
+        application.</p>
+        <p>This application is using <i>pyramid_jqm</i> version
+          <span id="about-pyramid-jqm-version"></span> and Pyramid version
+          <span id="about-pyramid-version"></span>.
+        </p>
       </div>
       
     </div>
@@ -64,7 +73,7 @@
       </div>
       
       <div data-role="content" id="maps-demo-content">
-        <div id="maps-demo-canvas" style="width:100%; height:100%"></div>
+        <div id="maps-demo-canvas"></div>
       </div>
 
     </div>
