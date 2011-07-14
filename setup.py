@@ -50,5 +50,9 @@ setup(name='pyramid_jqm',
       install_requires=install_requires,
       tests_require=install_requires,
       test_suite="pyramid_jqm",
-      entry_points='',
+      entry_points="""
+      [paste.paster_create_template]
+      pyramid_jqm_starter=pyramid_jqm.scaffolds:JQMStarterProjectTemplate
+      """
+      ,
       )
