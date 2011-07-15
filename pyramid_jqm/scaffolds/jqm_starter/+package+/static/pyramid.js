@@ -19,6 +19,7 @@ var pyramid = function () {
 
     var 
         google_maps_ready = new $.Deferred(),
+        map_ready = new $.Deferred(),
         device_location_ready = new $.Deferred(),
         api_prefix = '',
         xxx = null; // avoid trailing comma
@@ -161,6 +162,13 @@ var pyramid = function () {
                 
     }
 
+    function map_pageshow(div) {
+        map_ready.done(function (map) {
+                google.maps.event.trigger(map, 'resize');
+            });
+    }
+
+
     function map_pagecreate(div) {
         $.when(google_maps_ready, device_location_ready).done(
             function (map_options, loc) {
@@ -173,6 +181,7 @@ var pyramid = function () {
                     marker;
                 $.extend(local_map_options, map_options);
                 map = new google.maps.Map(canvas, local_map_options);
+                map_ready.resolve(map);
                 marker = new google.maps.Marker(
                          {position: point,
                           map: map,
@@ -180,7 +189,6 @@ var pyramid = function () {
                           icon: 'images/yellow_pin.png',
                           title: 'You are probably here'
                          });
-                google.maps.event.trigger(map, 'resize');
             });
     }
 
@@ -249,6 +257,7 @@ var pyramid = function () {
         'home_pagebeforeshow': home_pagebeforeshow,
         'about_pagecreate': about_pagecreate,
         'map_pagecreate': map_pagecreate,
+        'map_pageshow': map_pageshow,
         'form_pagecreate': form_pagecreate,
         'form_pageshow': form_pageshow,
         'init_google_maps': init_google_maps,

@@ -144,6 +144,10 @@
            pyramid.map_pagecreate($(this));
         });
 
+        $('#map').bind('pageshow', function () {
+           pyramid.map_pageshow($(this));
+        });
+
         $('#form').bind('pagecreate', function () {
            pyramid.form_pagecreate($(this));
         });
