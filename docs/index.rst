@@ -10,9 +10,15 @@ creating a :term:`jQuery Mobile` Pyramid application.
 Installation
 ------------
 
-Install using setuptools, e.g. (within a virtualenv)::
+Obtain the source code from the git repository:
 
-  $ easy_install pyramid_jqm
+  $ git clone git://github.com/Pylons/pyramid_jqm.git
+
+Use the "setup.py develop" command of your Python interpreter (or better yet,
+a virtualenv) to install the software:
+
+  $ cd pyramid_jqm
+  $ python setup.py develop
 
 Generating a Sample Application
 -------------------------------
