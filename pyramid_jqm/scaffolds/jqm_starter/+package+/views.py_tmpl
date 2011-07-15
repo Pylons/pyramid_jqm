@@ -5,14 +5,14 @@ from pkg_resources import get_distribution
 from pyramid.view import static_view
 from pyramid.view import view_config
 
-# www is a view for static files; it will be found when all other
-# views fail to be found (it's a NotFound view)
-www = static_view('{{package}}:static', cache_max_age=86400)
-www = view_config(context='pyramid.exceptions.NotFound')(www)
-
 cache_one_hour = 3600
 cache_one_day = 86400
 never_cache = 0
+
+# www is a view for static files; it will be found when all other
+# views fail to be found (it's a NotFound view)
+www = static_view('{{package}}:static', cache_max_age=cache_one_day)
+www = view_config(context='pyramid.exceptions.NotFound')(www)
 
 @view_config(name='versions.json', renderer='json', http_cache=cache_one_hour)
 def versions(request):
