@@ -127,7 +127,7 @@ var pyramid = function () {
     function home_pagebeforeshow(div) {
     }
     
-    function about_pyramid_pagecreate(div) {
+    function about_pagecreate(div) {
         $.getJSON(api_prefix + '/versions', function (data) {
                 $('#about-pyramid-jqm-version').text(data.pjqm_version);
                 $('#about-pyramid-version').text(data.pyramid_version);
@@ -151,7 +151,7 @@ var pyramid = function () {
                          {position: point,
                           map: map,
                           draggable: false,
-                          icon: 'yellow_pin.png',
+                          icon: 'images/yellow_pin.png',
                           title: 'You are probably here'
                          });
                 google.maps.event.trigger(map, 'resize');
@@ -160,7 +160,7 @@ var pyramid = function () {
 
     return {
         'home_pagebeforeshow': home_pagebeforeshow,
-        'about_pyramid_pagecreate': about_pyramid_pagecreate,
+        'about_pagecreate': about_pagecreate,
         'maps_demo_pagecreate': maps_demo_pagecreate,
         'init_google_maps': init_google_maps,
         'xxx': null // prevent commas

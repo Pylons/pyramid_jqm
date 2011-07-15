@@ -32,7 +32,7 @@
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Demos</li>
           <li>
-            <a href="#about-pyramid">About</a>
+            <a href="#about">About</a>
           </li>
           <li>
             <a href="#maps-demo">Google Maps Demo</a>
@@ -41,28 +41,30 @@
       </div>
     </div>
     
-    <div data-role="page" id="about-pyramid">
+    <div data-role="page" id="about">
       
       <div data-role="header" >
-        <h1>About pyramid_jqm</h1>
+        <h1>About</h1>
         <a href="#home" class="ui-btn-right">Home</a>
       </div>
       
       <div data-role="content">
-        <img src="pyramid-small.png"/>
+        <img src="images/pyramid-small.png"/>
 
         <p>
           <a href="http://pylonsproject.org">Pyramid</a> is a small, fast,
-        down-to-earth web framework written in Python.  <i>pyramid_jqm</i> is
+        down-to-earth web framework written in Python.</p>
+        <p>
+          <a href="http://github.com/Pylons/pyramid_jqm">pyramid_jqm</a> is
         a scaffolding package which gets you started on a
         simple <a href="http://jquerymobile.org">jQuery Mobile</a>
-        application.</p>
+        application.
+        </p>
         <p>This application is using <i>pyramid_jqm</i> version
           <span id="about-pyramid-jqm-version"></span> and Pyramid version
-          <span id="about-pyramid-version"></span>.
-        </p>
-        <p>The version information was retrieved via an XHR request to the
-        Pyramid application, which returns JSON.</p>
+          <span id="about-pyramid-version"></span> (version information
+        was retrieved via an XHR request to the Pyramid application, which
+        returns JSON).</p>
       </div>
       
     </div>
@@ -93,8 +95,8 @@
            pyramid.home_pagebeforeshow($(this));
         });
       
-        $('#about-pyramid').bind('pagecreate', function () {
-           pyramid.about_pyramid_pagecreate($(this));
+        $('#about').bind('pagecreate', function () {
+           pyramid.about_pagecreate($(this));
         });
       
         $('#maps-demo').bind('pagecreate', function () {
