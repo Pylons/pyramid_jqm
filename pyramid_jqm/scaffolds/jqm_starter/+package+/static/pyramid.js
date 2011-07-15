@@ -27,57 +27,6 @@ var pyramid = function () {
         $().toastmessage('showNoticeToast', text);
     }
 
-    function init_google_maps() {
-        // Common options across all maps
-        var map_options = {
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mayTypeControl: false,
-            mayTypeControlOptions: {
-                mapTypeIds: [google.maps.MapTypeId.ROADMAP],
-                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-            },
-            panControl: false, // drag instead
-            rotateControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.TOP_LEFT,
-                style: google.maps.ZoomControlStyle.SMALL
-            }
-        };
-        google_maps_ready.resolve(map_options);
-    }
-
-    function fail_device_location() {
-        var device_location = {
-            'lat': 38.39,
-            'lng': -77.45,
-            'label': 'Default location (Fredericksburg, VA)',
-            'formatted_address': 'Fredericksburg, VA, USA',
-            '_sentinel': null
-        };
-        console.log('Unable to determine device location -- using default');
-        device_location_ready.resolve(device_location);
-    }
-
-    function set_device_location(loc) {
-        device_location_ready.resolve(loc);
-    }
-        
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(set_device_location,
-                                                 fail_device_location,
-                                                 {'timeout': 2000});
-    } else {
-        fail_device_location();
-    }
-
-    // --------------------------------------------------------------------
-    // Centralized jqxhr error handler factory
-    // --------------------------------------------------------------------
-
     function jqxhr_error_factory(exception_msg, offline_msg, callback) {
 
         if (!exception_msg) {
@@ -124,18 +73,96 @@ var pyramid = function () {
 
     var jqxhr_error = jqxhr_error_factory(); // generic error
 
+    function init_google_maps() {
+        // Common options across all maps
+        var map_options = {
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mayTypeControl: false,
+            mayTypeControlOptions: {
+                mapTypeIds: [google.maps.MapTypeId.ROADMAP],
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+            },
+            panControl: false, // drag instead
+            rotateControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.TOP_LEFT,
+                style: google.maps.ZoomControlStyle.SMALL
+            }
+        };
+        google_maps_ready.resolve(map_options);
+    }
+
+    // --------------------------------------------------------------------
+    // Query for country codes / names.
+    //
+    // Call 'with_rows' the the data, one row per country.
+    // --------------------------------------------------------------------
+    function countries_api(with_rows) {
+        var api_url = api_prefix + '/countries.json';
+        alert(api_url);
+        $.getJSON(api_url, function (data) {
+            with_rows(data);
+        }).error(jqxhr_error);
+    }
+
+    // --------------------------------------------------------------------
+    // Utility function to populate a dropdown list of countries
+    // --------------------------------------------------------------------
+    function populate_countries(list) {
+        countries_api(function (data) {
+            list[0].options.length = 0;
+            $.each(data, function (index, item) {
+                list.append($('<option value="' + item.abbr + '">' +
+                                item.name + '</option>'));
+            });
+            list.selectmenu('refresh');
+        });
+    }
+
+    function fail_device_location() {
+        var device_location = {
+            'lat': 38.39,
+            'lng': -77.45,
+            'label': 'Default location (Fredericksburg, VA)',
+            'formatted_address': 'Fredericksburg, VA, USA',
+            '_sentinel': null
+        };
+        console.log('Unable to determine device location -- using default');
+        device_location_ready.resolve(device_location);
+    }
+
+    function set_device_location(loc) {
+        device_location_ready.resolve(loc);
+    }
+        
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(set_device_location,
+                                                 fail_device_location,
+                                                 {'timeout': 2000});
+    } else {
+        fail_device_location();
+    }
+
+    // --------------------------------------------------------------------
+    // Centralized jqxhr error handler factory
+    // --------------------------------------------------------------------
+
     function home_pagebeforeshow(div) {
     }
-    
+
     function about_pagecreate(div) {
-        $.getJSON(api_prefix + '/versions', function (data) {
+        $.getJSON(api_prefix + '/versions.json', function (data) {
                 $('#about-pyramid-jqm-version').text(data.pjqm_version);
                 $('#about-pyramid-version').text(data.pyramid_version);
             }).error(jqxhr_error);
                 
     }
 
-    function maps_demo_pagecreate(div) { 
+    function map_pagecreate(div) {
         $.when(google_maps_ready, device_location_ready).done(
             function (map_options, loc) {
                 var 
@@ -158,10 +185,73 @@ var pyramid = function () {
             });
     }
 
+    function form_pagecreate(div) {
+        var list = $('#personalinfo-country'),
+            form = $('#personalinfo-form'),
+            submit = $('#personalinfo-submit');
+
+        submit.tap(function (event) {
+                event.preventDefault();
+                form.submit();
+                return false;
+            });
+
+        form.validate({
+                rules: {
+                    'email': {  'email': true, 'maxlength': 100 },
+                    'firstname': { 'maxlength': 100 },
+                    'lastname': { 'maxlength': 100 }
+                },
+                submitHandler: function () {
+                    var api_url = api_prefix + '/change_personalinfo.json',
+                        formdata = form.serializeArray(),
+                        json_body = JSON.stringify(formdata);
+                    var jqXHR = $.ajax({type: 'POST',
+                                        url: api_url,
+                                        data: json_body,
+                                        contentType: 'application/json'});
+                    jqXHR.success(function (data, st, xhr) {
+                            show_status_message('Personal information changed');
+                        }).error(jqxhr_error);
+                }
+            });
+
+        populate_countries(list);
+    }
+
+    function form_pageshow(div) {
+        var url = api_prefix + '/get_personalinfo.json',
+            jqXHR = $.get(url);
+        
+        jqXHR.success(function (data, st, xhr) {
+                var country = data['country'],
+                    email = data['email'],
+                    firstname = data['firstname'],
+                    lastname = data['lastname'],
+                    newsletter = data['newsletter'],
+                    newsletter_control = $('#personalinfo-newsletter'),
+                    country_control = $('#personalinfo-country');
+                $('#personalinfo-email').val(email);
+                $('#personalinfo-firstname').val(firstname);
+                $('#personalinfo-lastname').val(lastname);
+                country_control.val(country);
+                country_control.selectmenu('refresh');
+                if (newsletter) {
+                    newsletter_control.attr('checked', 'checked');
+                    newsletter_control.checkboxradio('refresh');
+                }
+            }).error(jqxhr_error);
+    }
+
+
+    
+
     return {
         'home_pagebeforeshow': home_pagebeforeshow,
         'about_pagecreate': about_pagecreate,
-        'maps_demo_pagecreate': maps_demo_pagecreate,
+        'map_pagecreate': map_pagecreate,
+        'form_pagecreate': form_pagecreate,
+        'form_pageshow': form_pageshow,
         'init_google_maps': init_google_maps,
         'xxx': null // prevent commas
     };
