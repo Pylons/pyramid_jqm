@@ -139,14 +139,7 @@ var pyramid = function () {
         fail_device_location();
     }
 
-    // --------------------------------------------------------------------
-    // Centralized jqxhr error handler factory
-    // --------------------------------------------------------------------
-
-    function home_pagebeforeshow(div) {
-    }
-
-    function about_pagecreate(div) {
+    function about_pageshow(div) {
         $.getJSON(api_prefix + '/versions.json', function (data) {
                 $('#about-pyramid-jqm-version').text(data.pjqm_version);
                 $('#about-pyramid-version').text(data.pyramid_version);
@@ -246,13 +239,12 @@ var pyramid = function () {
     
 
     return {
-        'home_pagebeforeshow': home_pagebeforeshow,
-        'about_pagecreate': about_pagecreate,
+        'init_google_maps': init_google_maps,
+        'about_pageshow': about_pageshow,
         'map_pagecreate': map_pagecreate,
         'map_pageshow': map_pageshow,
         'form_pagecreate': form_pagecreate,
         'form_pageshow': form_pageshow,
-        'init_google_maps': init_google_maps,
         'xxx': null // prevent commas
     };
 
