@@ -31,6 +31,9 @@ This will create a ``MyApp`` :term:`distribution`, in which will live a
 redistributable Pyramid application.  The code which drives the application
 lives within the package.
 
+The Generated Application
+-------------------------
+
 To run the generated application, use ``paster serve`` against the
 ``development.ini`` file that lives within the distribution directory
 
@@ -43,10 +46,10 @@ something like the following image:
 
 .. image:: app.png
 
-The Generated Application
--------------------------
-
-The generated application 
+The generated application is optimized for mobile devices, but is usable via
+a normal web browser too.  It contains a variety of demonstration
+applications.  You can use it as a template to change and being building your
+own Pyramid/jQuery Mobile application.
 
 More Information
 ----------------
