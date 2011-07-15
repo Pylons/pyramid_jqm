@@ -12,10 +12,14 @@ Installation
 
 Obtain the source code from the git repository:
 
+.. code-block:: text
+
   $ git clone git://github.com/Pylons/pyramid_jqm.git
 
 Use the "setup.py develop" command of your Python interpreter (or better yet,
 a virtualenv) to install the software:
+
+.. code-block:: text
 
   $ cd pyramid_jqm
   $ python setup.py develop
