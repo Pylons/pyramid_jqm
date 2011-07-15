@@ -97,11 +97,6 @@ var pyramid = function () {
         google_maps_ready.resolve(map_options);
     }
 
-    // --------------------------------------------------------------------
-    // Query for country codes / names.
-    //
-    // Call 'with_rows' the the data, one row per country.
-    // --------------------------------------------------------------------
     function countries_api(with_rows) {
         var api_url = api_prefix + '/countries.json';
         $.getJSON(api_url, function (data) {
@@ -109,9 +104,6 @@ var pyramid = function () {
         }).error(jqxhr_error);
     }
 
-    // --------------------------------------------------------------------
-    // Utility function to populate a dropdown list of countries
-    // --------------------------------------------------------------------
     function populate_countries(list) {
         countries_api(function (data) {
             list[0].options.length = 0;
