@@ -103,7 +103,6 @@ var pyramid = function () {
     // --------------------------------------------------------------------
     function countries_api(with_rows) {
         var api_url = api_prefix + '/countries.json';
-        alert(api_url);
         $.getJSON(api_url, function (data) {
             with_rows(data);
         }).error(jqxhr_error);
@@ -169,7 +168,7 @@ var pyramid = function () {
                     point = new google.maps.LatLng(loc.coords.latitude, 
                                                    loc.coords.longitude),
                     local_map_options = {'center': point},
-                    canvas = $('#maps-demo-canvas')[0],
+                    canvas = $('#map-canvas')[0],
                     map,
                     marker;
                 $.extend(local_map_options, map_options);

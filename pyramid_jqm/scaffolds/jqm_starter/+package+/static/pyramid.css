@@ -1,17 +1,17 @@
-#maps-demo {
+#map {
     height: 100%;
     width: 100%;
     position: relative;
 }
 
-#maps-demo-content {
+#map-content {
     height: 100%;
     width: 100%;
     position: relative;
     padding: 0px;
 }
 
-#maps-demo-canvas {
+#map-canvas {
     height: 100%;
     width: 100%;
     position: relative;
