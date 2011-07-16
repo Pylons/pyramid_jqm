@@ -5,7 +5,7 @@ Overview
 --------
 
 :mod:`pyramid_jqm` is a package which provides "starter" scaffolding for
-creating a :term:`jQuery Mobile` Pyramid application.
+creating a :term:`jQuery Mobile` :term:`Pyramid` application.
 
 Installation
 ------------

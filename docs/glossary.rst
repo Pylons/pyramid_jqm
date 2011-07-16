@@ -7,7 +7,7 @@ Glossary
    :sorted:
 
    Pyramid
-      A `web framework <http://pylonshq.com/pyramid>`_.
+      A `Python web framework <http://pylonsproject.org/>`_.
 
    jQuery Mobile
       A touch-optimized application development framework for smartphones &
