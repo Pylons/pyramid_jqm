@@ -18,16 +18,34 @@
 var pyramid = function () {
 
     var 
+        //--------------------------------------------------------------------
+        // Deferred: resolved when google maps initialize callback invoked
+        //--------------------------------------------------------------------
         google_maps_ready = new $.Deferred(),
+        //--------------------------------------------------------------------
+        // Deferred: resolved when the demo google map is created
+        //--------------------------------------------------------------------
         map_ready = new $.Deferred(),
+        //--------------------------------------------------------------------
+        // Deferred: resolved when the device location is obtained
+        //--------------------------------------------------------------------
         device_location_ready = new $.Deferred(),
+        //--------------------------------------------------------------------
+        // The url prefix for all JSON quueries
+        //--------------------------------------------------------------------
         api_prefix = '',
         xxx = null; // avoid trailing comma
 
+    //------------------------------------------------------------------------
+    // Uses the jquery.toastmessage library to display a popup message
+    //------------------------------------------------------------------------
     function show_status_message(text) {
         $().toastmessage('showNoticeToast', text);
     }
 
+    //------------------------------------------------------------------------
+    // Error handler factory for XHR .error callback
+    //------------------------------------------------------------------------
     function jqxhr_error_factory(exception_msg, offline_msg, callback) {
 
         if (!exception_msg) {
@@ -40,7 +58,7 @@ var pyramid = function () {
                           'connection';
         }
 
-        var ezbird_down_msg = 'Could not retrieve data; a server used ' +
+        var pyramid_down_msg = 'Could not retrieve data; a server used ' +
                               'by the app may be temporarily down, ' +
                               'please try again later';
 
@@ -53,7 +71,7 @@ var pyramid = function () {
                 msg = offline_msg;
             }
             else if (status_code === 0) {
-                msg = ezbird_down_msg;
+                msg = pyramid_down_msg;
             }
             else {
                 msg = exception_msg;
@@ -72,8 +90,14 @@ var pyramid = function () {
         return handler;
     }
 
-    var jqxhr_error = jqxhr_error_factory(); // generic error
+    //------------------------------------------------------------------------
+    // Generic error handler for XHR .error callback
+    //------------------------------------------------------------------------
+    var jqxhr_error = jqxhr_error_factory();
 
+    //------------------------------------------------------------------------
+    // Initializes Google map options; invoked by "initialize" script callback
+    //------------------------------------------------------------------------
     function init_google_maps() {
         // Common options across all maps
         var map_options = {
@@ -97,6 +121,9 @@ var pyramid = function () {
         google_maps_ready.resolve(map_options);
     }
 
+    //------------------------------------------------------------------------
+    // Obtains countries list from Pyramid server via a JSON request
+    //------------------------------------------------------------------------
     function countries_api(with_rows) {
         var api_url = api_prefix + '/countries.json';
         $.getJSON(api_url, function (data) {
@@ -104,6 +131,9 @@ var pyramid = function () {
         }).error(jqxhr_error);
     }
 
+    //------------------------------------------------------------------------
+    // Adds countries data to a listview
+    //------------------------------------------------------------------------
     function populate_countries(list) {
         countries_api(function (data) {
             list[0].options.length = 0;
@@ -115,6 +145,9 @@ var pyramid = function () {
         });
     }
 
+    //------------------------------------------------------------------------
+    // Used as device location callback when no device location found
+    //------------------------------------------------------------------------
     function fail_device_location() {
         var device_location = {
             'lat': 38.39,
@@ -127,6 +160,9 @@ var pyramid = function () {
         device_location_ready.resolve(device_location);
     }
 
+    //------------------------------------------------------------------------
+    // Used as device location callback when location is found
+    //------------------------------------------------------------------------
     function set_device_location(loc) {
         device_location_ready.resolve(loc);
     }
@@ -139,6 +175,9 @@ var pyramid = function () {
         fail_device_location();
     }
 
+    //------------------------------------------------------------------------
+    // JQM pageshow handler for the "about" page
+    //------------------------------------------------------------------------
     function about_pageshow(div) {
         $.getJSON(api_prefix + '/versions.json', function (data) {
                 $('#about-pyramid-jqm-version').text(data.pjqm_version);
@@ -147,6 +186,9 @@ var pyramid = function () {
                 
     }
 
+    //------------------------------------------------------------------------
+    // JQM pageshow handler for the "Map Demo" page
+    //------------------------------------------------------------------------
     function map_pageshow(div) {
         map_ready.done(function (map) {
                 google.maps.event.trigger(map, 'resize');
@@ -154,6 +196,9 @@ var pyramid = function () {
     }
 
 
+    //------------------------------------------------------------------------
+    // JQM pagecreate handler for the "Map Demo" page
+    //------------------------------------------------------------------------
     function map_pagecreate(div) {
         $.when(google_maps_ready, device_location_ready).done(
             function (map_options, loc) {
@@ -177,6 +222,9 @@ var pyramid = function () {
             });
     }
 
+    //------------------------------------------------------------------------
+    // JQM pagecreate handler for the "Form Demo" page
+    //------------------------------------------------------------------------
     function form_pagecreate(div) {
         var list = $('#personalinfo-country'),
             form = $('#personalinfo-form'),
@@ -211,6 +259,9 @@ var pyramid = function () {
         populate_countries(list);
     }
 
+    //------------------------------------------------------------------------
+    // JQM pageshow handler for the "Form Demo" page
+    //------------------------------------------------------------------------
     function form_pageshow(div) {
         var url = api_prefix + '/get_personalinfo.json',
             jqXHR = $.get(url);
@@ -236,8 +287,6 @@ var pyramid = function () {
     }
 
 
-    
-
     return {
         'init_google_maps': init_google_maps,
         'about_pageshow': about_pageshow,
@@ -245,7 +294,7 @@ var pyramid = function () {
         'map_pageshow': map_pageshow,
         'form_pagecreate': form_pagecreate,
         'form_pageshow': form_pageshow,
-        'xxx': null // prevent commas
+        'xxx': null // avoid trailing comma
     };
 
 }();
