@@ -96,7 +96,8 @@ var pyramid = function () {
     var jqxhr_error = jqxhr_error_factory();
 
     //------------------------------------------------------------------------
-    // Initializes Google map options; invoked by "initialize" script callback
+    // Initializes Google map options; invoked by script callback
+    // (see index.html, "&callback=pyramid.init_google_maps")
     //------------------------------------------------------------------------
     function init_google_maps() {
         // Common options across all maps
