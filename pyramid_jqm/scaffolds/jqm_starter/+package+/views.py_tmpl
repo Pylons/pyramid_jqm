@@ -5,14 +5,14 @@ from pkg_resources import get_distribution
 from pyramid.view import static_view
 from pyramid.view import view_config
 
+# www is a view for static files; it will be found when all other
+# views fail to be found (it's a NotFound view)
+www = static_view('{{package}}:static', cache_max_age=86400)
+www = view_config(context='pyramid.exceptions.NotFound')(www)
+
 cache_one_hour = 3600
 cache_one_day = 86400
 never_cache = 0
-
-# www is a view for static files; it will be found when all other
-# views fail to be found (it's a NotFound view)
-www = static_view('{{package}}:static', cache_max_age=cache_one_day)
-www = view_config(context='pyramid.exceptions.NotFound')(www)
 
 @view_config(name='versions.json', renderer='json', http_cache=cache_one_hour)
 def versions(request):
@@ -25,6 +25,11 @@ def versions(request):
 def countries(crequest):
     return [ {'abbr':c[0], 'name':c[1]} for c in countrylist ]
 
+@view_config(name='webframeworks.json', renderer='json',
+             http_cache=cache_one_day)
+def webframeworks(crequest):
+    return webframework_list
+
 @view_config(name='get_personalinfo.json', renderer='json',
              http_cache=never_cache)
 def get_personalinfo(request):
@@ -33,11 +38,15 @@ def get_personalinfo(request):
 @view_config(name='change_personalinfo.json', renderer='json',
              http_cache=never_cache)
 def change_personalinfo(request):
-    update = {}
-    for item in request.json_body:
+    data = request.json_body
+    frameworks = []
+    update = dict(frameworks=frameworks)
+    for item in data:
         name, value = item['name'], item['value']
         if name == 'newsletter':
             update['newsletter'] = True
+        if name == 'frameworks':
+            frameworks.append(value)
         else:
             update[name] = value
     if not 'newsletter' in update:
@@ -297,3 +306,39 @@ countrylist = [
 ("ZM", 'Zambia'),
 ("ZW", 'Zimbabwe'),
 ]
+
+webframework_list = [
+    {'name': 'python',
+     'desc': 'Python',
+     'children':
+     [
+         {'name':'pyramid', 'desc':'Pyramid'},
+         {'name':'pylons', 'desc':'Pylons'},
+         {'name':'django', 'desc':'Django'},
+         {'name':'turbogears', 'desc':'TurboGears'},
+         {'name':'zope', 'desc':'Zope'},
+         {'name':'grok', 'desc':'Grok'},
+         {'name':'flask', 'desc':'Flask'},
+         {'name':'bottle', 'desc':'Bottle'},
+         ],
+     },
+    {'name': 'ruby',
+     'desc': 'Ruby',
+     'children':
+     [
+         {'name':'rails', 'desc':'Rails'},
+         {'name':'merb', 'desc':'Merb'},
+         {'name':'camping', 'desc':'Camping'},
+         {'name':'sinatra', 'desc':'Sinatra'},
+         ],
+     },
+    {'name': 'php',
+     'desc': 'PHP',
+     'children':
+     [
+         {'name':'zend', 'desc':'Zend'},
+         {'name':'symfony', 'desc':'Symfony'},
+         ],
+    },
+]
+     

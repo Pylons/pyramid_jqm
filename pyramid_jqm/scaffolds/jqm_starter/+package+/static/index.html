@@ -108,7 +108,15 @@
                    class="required"/>
             <label for="personalinfo-country">Country:</label>
             <select name="country" id="personalinfo-country">
-              <option/> <!-- required -->
+              <option value="choose" data-placeholder="true">Choose...</option>
+            </select>
+            <label for="personalinfo-frameworks">Your Web Frameworks</label>
+            <select id="personalinfo-frameworks"
+                    name="frameworks"
+                    data-native-menu="false"
+                    multiple="multiple"
+                    required="true">
+              <option value="choose" data-placeholder="true">Choose...</option>
             </select>
             <label for="personalinfo-newsletter">Receive newsletter</label>
             <input type="checkbox" name="newsletter" 

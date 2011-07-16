@@ -133,7 +133,17 @@ var pyramid = function () {
     }
 
     //------------------------------------------------------------------------
-    // Adds countries data to a listview
+    // Obtains webframeworks list from Pyramid server via a JSON request
+    //------------------------------------------------------------------------
+    function webframeworks_api(with_rows) {
+        var api_url = api_prefix + '/webframeworks.json';
+        $.getJSON(api_url, function (data) {
+            with_rows(data);
+        }).error(jqxhr_error);
+    }
+
+    //------------------------------------------------------------------------
+    // Adds countries data to a select input
     //------------------------------------------------------------------------
     function populate_countries(list) {
         countries_api(function (data) {
@@ -141,6 +151,25 @@ var pyramid = function () {
             $.each(data, function (index, item) {
                 list.append($('<option value="' + item.abbr + '">' +
                                 item.name + '</option>'));
+            });
+            list.selectmenu('refresh');
+        });
+    }
+
+    //------------------------------------------------------------------------
+    // Adds web framework data to a select input
+    //------------------------------------------------------------------------
+    function populate_webframeworks(list) {
+        webframeworks_api(function (data) {
+            list[0].options.length = 0;
+            $.each(data, function (index, group) {
+                var optgroup = $('<optgroup label="' + group.desc + '">');
+                list.append(optgroup);
+                $.each(group.children, function (index2, item) {
+                        var option = $('<option value="' + item.name + '">' +
+                                       item.desc + '</option>');
+                        optgroup.append(option);
+                    });
             });
             list.selectmenu('refresh');
         });
@@ -227,7 +256,8 @@ var pyramid = function () {
     // JQM pagecreate handler for the "Form Demo" page
     //------------------------------------------------------------------------
     function form_pagecreate(div) {
-        var list = $('#personalinfo-country'),
+        var countries_select = $('#personalinfo-country'),
+            frameworks_select = $('#personalinfo-frameworks'),
             form = $('#personalinfo-form'),
             submit = $('#personalinfo-submit');
 
@@ -257,7 +287,8 @@ var pyramid = function () {
                 }
             });
 
-        populate_countries(list);
+        populate_countries(countries_select);
+        populate_webframeworks(frameworks_select);
     }
 
     //------------------------------------------------------------------------
@@ -273,13 +304,17 @@ var pyramid = function () {
                     firstname = data['firstname'],
                     lastname = data['lastname'],
                     newsletter = data['newsletter'],
+                    frameworks = data['frameworks'],
                     newsletter_control = $('#personalinfo-newsletter'),
-                    country_control = $('#personalinfo-country');
+                    country_control = $('#personalinfo-country'),
+                    frameworks_control = $('#personalinfo-frameworks');
                 $('#personalinfo-email').val(email);
                 $('#personalinfo-firstname').val(firstname);
                 $('#personalinfo-lastname').val(lastname);
                 country_control.val(country);
                 country_control.selectmenu('refresh');
+                frameworks_control.val(frameworks);
+                frameworks_control.selectmenu('refresh');
                 if (newsletter) {
                     newsletter_control.attr('checked', 'checked');
                     newsletter_control.checkboxradio('refresh');
