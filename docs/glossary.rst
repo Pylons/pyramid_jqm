@@ -17,9 +17,6 @@ Glossary
       A parameterized set of files that can be used to generate a Pyramid
       application.
 
-   Pyramid
-      A Python web framework: http://pylonsproject.org.
-
    PhoneGap
       A `framework <http://www.phonegap.com/>`_ which allows HTML5 apps to be
       used as "native" applications on iPhone, Android, and other mobile
