@@ -294,7 +294,15 @@ var pyramid = function () {
     //------------------------------------------------------------------------
     // JQM pageshow handler for the "Form Demo" page
     //------------------------------------------------------------------------
-    function form_pageshow(div) {
+    function form_pageshow(div, ui) {
+
+        if (ui.prevPage && (!ui.prevPage[0].id)) {
+            // prevent the logic in this pageshow event from being executed
+            // if the previous page was the frameworks multiselect dialog
+            // (it's a separate page; no fun that we need this)
+            return;
+        }
+
         var url = api_prefix + '/get_personalinfo.json',
             jqXHR = $.get(url);
         
