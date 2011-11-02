@@ -330,6 +330,22 @@ var pyramid = function () {
             }).error(jqxhr_error);
     }
 
+    //------------------------------------------------------------------------
+    // JQM pagecreate handler for the "Dynamic Pages Demo" page
+    //------------------------------------------------------------------------
+    function dynpages_pagecreate(div) {
+        var ul = $('#dynpages-languages');
+        webframeworks_api(function (data) {
+            ul.listview();
+            $.each(data, function (index, lang) {
+                var li = $('<li><a href="/language/' + lang.name + '">' +
+                           lang.desc + '</a></li>');
+                ul.append(li);
+            });
+            ul.listview('refresh');
+        });
+    }
+
 
     return {
         'init_google_maps': init_google_maps,
@@ -338,6 +354,7 @@ var pyramid = function () {
         'map_pageshow': map_pageshow,
         'form_pagecreate': form_pagecreate,
         'form_pageshow': form_pageshow,
+        'dynpages_pagecreate': dynpages_pagecreate,
         'xxx': null // avoid trailing comma
     };
 

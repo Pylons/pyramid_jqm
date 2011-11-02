@@ -2,6 +2,7 @@
 
 from pkg_resources import get_distribution
 
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.view import static_view
 from pyramid.view import view_config
 
@@ -341,3 +342,11 @@ webframework_list = [
          ],
     },
 ]
+
+@view_config(route_name="languages", renderer='templates/language_info.pt',
+             http_cache=cache_one_day)
+def language_info(crequest):
+    for info in webframework_list:
+        if info['name'] == crequest.matchdict['name']:
+            return info
+    return HTTPNotFound()

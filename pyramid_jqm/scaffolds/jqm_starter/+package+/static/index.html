@@ -41,6 +41,9 @@
           <li>
             <a href="#form">Form Demo</a>
           </li>
+          <li>
+            <a href="#dynpages">Dynamic Pages Demo</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -131,6 +134,24 @@
 
     </div>
 
+
+    <div data-role="page" id="dynpages">
+
+      <div data-role="header" >
+        <a href="#home">Home</a>
+        <h1>Dynamic Pages Demo</h1>
+      </div>
+
+      <div data-role="content">
+
+        <ul id ="dynpages-languages" data-role="listview" data-inset="true">
+          <li data-role="list-divider">Languages</li>
+        </ul>
+
+      </div>
+
+    </div>
+
     <script type="text/javascript">
 
       $(document).ready(function () {
@@ -158,6 +179,10 @@
 
         $('#form').bind('pageshow', function (event, ui) {
            pyramid.form_pageshow($(this), ui);
+        });
+
+        $('#dynpages').bind('pagecreate', function () {
+           pyramid.dynpages_pagecreate($(this));
         });
 
       });

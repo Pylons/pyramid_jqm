@@ -1,0 +1,17 @@
+<html>
+<head>
+ <title>Language: ${desc}</title>
+</head>
+<body>
+ <div data-role="header">
+  <a data-rel="back">Back</a>
+  <h1>Language: ${desc}</h1>
+ </div>
+ <div data-role="content">
+  <h4>Frameworks</h4>
+  <ul>
+   <li tal:repeat="child children">${child['desc']}</li>
+  </ul>
+ </div>
+</body>
+</html>
