@@ -97,6 +97,22 @@ HTML.  See the ``pyramid.js`` source ``form_pagecreate`` and
 ``form_pageshow`` functions to see how the form data is retrieved and
 changed.
 
+The "Dynamic Pages Demo" Page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This page displays a dynamically-generated list of languages, using the
+same data used to generate the "frameworks" multi-select in the form demo.
+Each list item links to a URL of a page generated via a server-side view:
+when clicked, the ``jquery.mobile`` AJAX link support is triggered, which
+causes any page not already loaded to be fetched and then added to the DOM
+of the application.
+
+See the ``index.html`` source for the ``div`` with the id ``dynpages`` to see
+the HTML for the list of langages.  See the ``pyramid.js`` source
+``dynpages_pagecreate``  to see how the JSON data is used to generate the
+dynamic links.
+
+
 XHR Error Handling
 ~~~~~~~~~~~~~~~~~~
 
