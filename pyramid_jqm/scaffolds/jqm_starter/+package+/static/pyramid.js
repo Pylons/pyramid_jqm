@@ -17,7 +17,7 @@
 
 var pyramid = function () {
 
-    var 
+    var
         //--------------------------------------------------------------------
         // Deferred: resolved when google maps initialize callback invoked
         //--------------------------------------------------------------------
@@ -85,7 +85,7 @@ var pyramid = function () {
                 callback();
             }
 
-        } 
+        }
 
         return handler;
     }
@@ -196,7 +196,7 @@ var pyramid = function () {
     function set_device_location(loc) {
         device_location_ready.resolve(loc);
     }
-        
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(set_device_location,
                                                  fail_device_location,
@@ -213,7 +213,7 @@ var pyramid = function () {
                 $('#about-pyramid-jqm-version').text(data.pjqm_version);
                 $('#about-pyramid-version').text(data.pyramid_version);
             }).error(jqxhr_error);
-                
+
     }
 
     //------------------------------------------------------------------------
@@ -232,8 +232,8 @@ var pyramid = function () {
     function map_pagecreate(div) {
         $.when(google_maps_ready, device_location_ready).done(
             function (map_options, loc) {
-                var 
-                    point = new google.maps.LatLng(loc.coords.latitude, 
+                var
+                    point = new google.maps.LatLng(loc.coords.latitude,
                                                    loc.coords.longitude),
                     local_map_options = {'center': point},
                     canvas = $('#map-canvas')[0],
@@ -305,7 +305,7 @@ var pyramid = function () {
 
         var url = api_prefix + '/get_personalinfo.json',
             jqXHR = $.get(url);
-        
+
         jqXHR.success(function (data, st, xhr) {
                 var country = data['country'],
                     email = data['email'],

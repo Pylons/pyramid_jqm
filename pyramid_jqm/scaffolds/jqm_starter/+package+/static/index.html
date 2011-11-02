@@ -23,13 +23,13 @@
   <body>
 
     <div data-role="page" id="home">
-      
+
       <div data-role="header">
         <h1>pyramid_jqm</h1>
       </div>
-      
+
       <div data-role="content">
-        
+
         <ul data-role="listview" data-inset="true">
           <li data-role="list-divider">Demos</li>
           <li>
@@ -44,13 +44,13 @@
         </ul>
       </div>
     </div>
-    
+
     <div data-role="page" id="about">
       <div data-role="header" >
         <a href="#home">Home</a>
         <h1>About</h1>
       </div>
-      
+
       <div data-role="content">
         <img src="images/pyramid-small.png"/>
 
@@ -67,16 +67,16 @@
           <span id="about-pyramid-jqm-version"></span> and Pyramid version
           <span id="about-pyramid-version"></span>.</p>
       </div>
-      
+
     </div>
 
     <div data-role="page" id="map">
-      
+
       <div data-role="header" data-position="fixed">
         <a href="#home">Home</a>
         <h1>Map Demo</h1>
       </div>
-      
+
       <div data-role="content" id="map-content">
         <div id="map-canvas"></div>
       </div>
@@ -90,21 +90,21 @@
         <a href="#home">Home</a>
         <h1>Form Demo</h1>
       </div>
-  
+
       <div data-role="content">
-    
-        <form id="personalinfo-form" method="post" 
+
+        <form id="personalinfo-form" method="post"
               action="/change_personalinfo">
-      
+
           <fieldset data-role="fieldcontain">
             <label for="personalinfo-email">Email:</label>
-            <input type="email" name= "email" id="personalinfo-email" 
+            <input type="email" name= "email" id="personalinfo-email"
                    class="required"/>
             <label for="personalinfo-firstname">First Name:</label>
             <input type="text" name="firstname" id="personalinfo-firstname"
                    class="required"/>
             <label for="personalinfo-lastname">Last Name:</label>
-            <input type="text" name="lastname" id="personalinfo-lastname" 
+            <input type="text" name="lastname" id="personalinfo-lastname"
                    class="required"/>
             <label for="personalinfo-country">Country:</label>
             <select name="country" id="personalinfo-country">
@@ -119,16 +119,16 @@
               <option value="choose" data-placeholder="true">Choose...</option>
             </select>
             <label for="personalinfo-newsletter">Receive newsletter</label>
-            <input type="checkbox" name="newsletter" 
+            <input type="checkbox" name="newsletter"
                    id="personalinfo-newsletter"/>
             <a href="#" id="personalinfo-submit" rel="external"
                data-role="button">Submit</a>
           </fieldset>
-          
+
         </form>
-        
+
       </div>
-      
+
     </div>
 
     <script type="text/javascript">
@@ -143,7 +143,7 @@
         $('#about').bind('pageshow', function () {
            pyramid.about_pageshow($(this));
         });
-      
+
         $('#map').bind('pagecreate', function () {
            pyramid.map_pagecreate($(this));
         });
@@ -159,7 +159,7 @@
         $('#form').bind('pageshow', function (event, ui) {
            pyramid.form_pageshow($(this), ui);
         });
-      
+
       });
 
     </script>
