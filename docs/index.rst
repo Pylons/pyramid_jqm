@@ -22,7 +22,7 @@ a virtualenv) to install the software:
 .. code-block:: text
 
   $ cd pyramid_jqm
-  $ python setup.py develop
+  $ /path/to/python setup.py develop
 
 Generating a Sample Application
 -------------------------------
@@ -34,12 +34,18 @@ application:
 
 .. code-block:: text
 
-   $ paster create -t pyramid_jqm_starter MyApp
+   $ /path/to/paster create -t pyramid_jqm_starter MyApp
 
 This will create a ``MyApp`` :term:`distribution`, in which will live a
 ``myapp`` Python :term:`package`.  The distribution represents a
 redistributable Pyramid application.  The code which drives the application
-lives within the package.
+lives within the package.  You need to install that package as well:
+
+.. code-block:: text
+
+  $ cd myapp
+  $ /path/to/python setup.py develop
+
 
 The Generated Application
 -------------------------
