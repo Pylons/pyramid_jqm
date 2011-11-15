@@ -1,3 +1,11 @@
+0.2 (unreleased)
+================
+
+- Updated the scaffold's version of ``jquery.mobile`` to version 1.0rc3.
+
+- Updated the scaffold's version of ``jquery`` to version 1.6.4.
+
+
 0.1 (2011-11-02)
 ================
 

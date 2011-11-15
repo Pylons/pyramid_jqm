@@ -28,7 +28,7 @@ install_requires = [
     ]
 
 setup(name='pyramid_jqm',
-      version='0.1',
+      version='0.2dev',
       description=('a package which provides "starter" scaffolding for '
                    'creating a jQuery Mobile Pyramid application.'),
       long_description=README + '\n\n' + CHANGES,
