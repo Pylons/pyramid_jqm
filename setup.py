@@ -28,7 +28,7 @@ install_requires = [
     ]
 
 setup(name='pyramid_jqm',
-      version='0.2dev',
+      version='0.2',
       description=('a package which provides "starter" scaffolding for '
                    'creating a jQuery Mobile Pyramid application.'),
       long_description=README + '\n\n' + CHANGES,
@@ -52,6 +52,8 @@ setup(name='pyramid_jqm',
       test_suite="pyramid_jqm",
       entry_points="""
       [paste.paster_create_template]
+      pyramid_jqm_starter=pyramid_jqm.scaffolds:JQMStarterProjectTemplate
+      [pyramid.scaffold]
       pyramid_jqm_starter=pyramid_jqm.scaffolds:JQMStarterProjectTemplate
       """
       ,

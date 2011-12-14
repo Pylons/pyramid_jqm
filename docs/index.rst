@@ -30,11 +30,20 @@ Generating a Sample Application
 The primary job of :mod:`pyramid_jqm` is to provide a :term:`scaffold` which
 allows you to easily generate a :term:`Pyramid` application that has jQuery
 Mobile integration.  After :mod:`pyramid_jqm` is installed, generate an
-application:
+application.  The way this is done differs slightly if you're using Pyramid
+1.1, 1.2, or 1.3.
+
+On Pyramid 1.1 or 1.2:
 
 .. code-block:: text
 
-   $ /path/to/paster create -t pyramid_jqm_starter MyApp
+   $ $myvenv/bin/paster create -t pyramid_jqm_starter MyApp
+
+On Pyramid 1.3:
+
+.. code-block:: text
+
+   $ $myvenv/bin/pcreate -s pyramid_jqm_starter MyApp
 
 This will create a ``MyApp`` :term:`distribution`, in which will live a
 ``myapp`` Python :term:`package`.  The distribution represents a

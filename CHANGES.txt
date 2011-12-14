@@ -1,5 +1,7 @@
-0.2 (unreleased)
+0.2 (2011-12-14)
 ================
+
+- Made scaffolding compatible with ``pcreate`` for Pyramid 1.3a2+.
 
 - Updated the scaffold's version of ``jquery.mobile`` to version 1.0.
   [WouterVH]
