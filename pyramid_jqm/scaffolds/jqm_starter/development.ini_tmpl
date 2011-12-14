@@ -9,11 +9,10 @@ default_locale_name = en
 
 [pipeline:main]
 pipeline =
-    egg:WebError#evalerror
     {{project}}
 
 [server:main]
-use = egg:Paste#http
+use = egg:pyramid#wsgiref
 host = 0.0.0.0
 port = 6543
 

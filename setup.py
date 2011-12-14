@@ -24,11 +24,11 @@ except IOError:
     README = CHANGES = ''
 
 install_requires = [
-    'pyramid>=1.1b3', # requires static_view with use_subpath
+    'pyramid>=1.1.3dev', # requires wsgiref paste.server_runner entry point
     ]
 
 setup(name='pyramid_jqm',
-      version='0.2',
+      version='0.2dev',
       description=('a package which provides "starter" scaffolding for '
                    'creating a jQuery Mobile Pyramid application.'),
       long_description=README + '\n\n' + CHANGES,
