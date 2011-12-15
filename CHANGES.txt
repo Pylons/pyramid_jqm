@@ -1,7 +1,11 @@
-Next release
-============
+0.2 (2011-12-14)
+================
 
 - Made scaffolding compatible with ``pcreate`` for Pyramid 1.3a2+.
+
+- Use ``egg:pyramid#wsgiref`` server instead of ``egg:Paste#http`` server.
+  This change will require users to use any of Pyramid 1.1.3, Pyramid 1.2.5,
+  or Pyramid 1.3a2+.  Older minor versions in any of those series will fail.
 
 - Updated the scaffold's version of ``jquery.mobile`` to version 1.0.
   [WouterVH]

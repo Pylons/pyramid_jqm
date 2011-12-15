@@ -68,6 +68,26 @@ today_fmt = '%B %d, %Y'
 # searched for source files.
 #exclude_dirs = []
 
+exclude_patterns = ['_themes/README.rst',]
+
+# Add and use Pylons theme
+if 'sphinx-build' in ' '.join(sys.argv): # protect against dumb importers
+    from subprocess import call, Popen, PIPE
+
+    p = Popen('which git', shell=True, stdout=PIPE)
+    git = p.stdout.read().strip()
+    cwd = os.getcwd()
+    _themes = os.path.join(cwd, '_themes')
+
+    if not os.path.isdir(_themes):
+        call([git, 'clone', 'git://github.com/Pylons/pylons_sphinx_theme.git',
+                '_themes'])
+    else:
+        os.chdir(_themes)
+        call([git, 'checkout', 'master'])
+        call([git, 'pull'])
+        os.chdir(cwd)
+
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
 #default_role = None
@@ -122,7 +142,7 @@ html_theme_options = dict(github_url='http://github.com/Pylons/pyramid_jqm')
 # here, relative to this directory. They are copied after the builtin
 # static files, so a file named "default.css" will overwrite the builtin
 # "default.css".
-html_static_path = ['.static']
+#html_static_path = ['.static']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page
 # bottom, using the given strftime format.

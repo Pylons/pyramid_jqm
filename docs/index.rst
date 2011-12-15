@@ -66,6 +66,13 @@ To run the generated application, use ``paster serve`` against the
 
    $ paster serve MyApp/development.ini
 
+.. note::
+
+   If you get an exception while doing the above that relates to not being
+   able to find a "server runner" for ``egg:pyramid#wsgiref``, upgrade to
+   Pyramid 1.0.2, 1.1.3, 1.2.5, or 1.3a2+ or any later release in any of
+   those minor versions.
+
 A server will be listening on port 6543.  When you visit it, you will see
 something like the following image:
 
