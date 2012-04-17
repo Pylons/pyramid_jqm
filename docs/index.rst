@@ -52,7 +52,7 @@ lives within the package.  You need to install that package as well:
 
 .. code-block:: text
 
-  $ cd myapp
+  $ cd MyApp
   $ /path/to/python setup.py develop
 
 
