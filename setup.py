@@ -26,16 +26,18 @@ except IOError:
 install_requires = [
     'pyramid>=1.1.3', # requires wsgiref paste.server_runner entry point
     ]
+testing_extras = ['nose', 'coverage']
+docs_extras = ['Sphinx']
 
 setup(name='pyramid_jqm',
-      version='0.2',
+      version='0.3',
       description=('a package which provides "starter" scaffolding for '
                    'creating a jQuery Mobile Pyramid application.'),
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Intended Audience :: Developers",
         "Programming Language :: Python",
-        "Framework :: Pylons",
+        "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP :: WSGI",
         "License :: Repoze Public License",
         ],
@@ -49,6 +51,10 @@ setup(name='pyramid_jqm',
       zip_safe=False,
       install_requires=install_requires,
       tests_require=install_requires,
+      extras_require = {
+          'testing':testing_extras,
+          'docs':docs_extras,
+          },
       test_suite="pyramid_jqm",
       entry_points="""
       [paste.paster_create_template]

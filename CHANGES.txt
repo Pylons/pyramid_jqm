@@ -1,7 +1,14 @@
-Next release
-============
+0.3 (2012-04-17)
+================
+
+- Make compatible with Venusian 1.0a4 (dont rely on ``view_config(www)`` to
+  be scanned).
 
 - Prevent import warning when installed on Pyramid 1.2.
+
+- Add ``Framework :: Pyramid`` trove classifier.
+
+- Add ``testing`` and ``docs`` extras to setup.py.
 
 0.2 (2011-12-14)
 ================
