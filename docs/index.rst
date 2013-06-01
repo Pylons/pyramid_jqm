@@ -37,7 +37,7 @@ On Pyramid 1.1 or 1.2:
 
 .. code-block:: text
 
-   $ $myvenv/bin/paster create -t pyramid_jqm_starter MyApp
+   $ $myvenv/pcreate -t pyramid_jqm_starter MyApp
 
 On Pyramid 1.3:
 
@@ -59,12 +59,12 @@ lives within the package.  You need to install that package as well:
 The Generated Application
 -------------------------
 
-To run the generated application, use ``paster serve`` against the
+To run the generated application, use ``pserve`` against the
 ``development.ini`` file that lives within the distribution directory
 
 .. code-block:: text
 
-   $ paster serve MyApp/development.ini
+   $ pserve MyApp/development.ini
 
 .. note::
 
